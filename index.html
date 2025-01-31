@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facility Registration Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <img src="top_left.svg" alt="Top Left Decoration" class="top-left" />
+    <img src="top_right.svg" alt="Top Right Decoration" class="top-right" />
+
+    <div class="logo">
+        <img src="main_logo.svg" alt="Main Logo" />
+    </div>
+
+    <div class="container">
+        <h2>Registration</h2>
+        <form id="registrationForm">
+            <div class="input-row">
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" id="name" required />
+                </div>
+                <div>
+                    <label for="title">Title</label>
+                    <input type="text" id="title" required />
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div>
+                    <label for="bayanati">Bayanati number</label>
+                    <input type="text" id="bayanati" pattern="\d*" required />
+                </div>
+                <div>
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" required />
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div>
+                    <label for="facility">Facility name</label>
+                    <input type="text" id="facility" required />
+                </div>
+                <div>
+                    <label for="emirate">Emirate</label>
+                    <select id="emirate" required>
+                        <option value="">Select Emirate</option>
+                        <option value="Abu Dhabi">Abu Dhabi</option>
+                        <option value="Dubai">Dubai</option>
+                        <option value="Sharjah">Sharjah</option>
+                        <option value="Ajman">Ajman</option>
+                        <option value="Umm Al Quwain">Umm Al Quwain</option>
+                        <option value="Ras Al Khaimah">Ras Al Khaimah</option>
+                        <option value="Fujairah">Fujairah</option>
+                    </select>
+                </div>
+                <div class="input-row terms-container">
+                    <input type="checkbox" id="terms" required />
+                    <label for="terms">I agree to the terms and conditions</label>
+                </div>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="success-message">✓ Thank you for registration</div>
+    <div class="error-message">⚠ Something went wrong, please try again</div>
+    <!-- Popup -->
+    <div id="consentPopup" class="popup">
+        <div class="popup-content">
+            <p>
+                By checking the box, you consent to Johnson & Johnson Middle East LLC using your personal data, including your image and statements. You confirm that this data was provided voluntarily, and you waive any rights to it, granting to Johnson & Johnson Middle
+                East LLC full ownership, including copyrights. You release to Johnson & Johnson Middle East LLC from any liabilities related to the use, publication, or modification of the data. You also acknowledge that you are of legal age to provide
+                this consent.
+            </p>
+            <button id="closePopup">Close</button>
+        </div>
+    </div>
+    <script>
+        // عرض الـ Popup عند تحميل الصفحة
+        window.onload = function() {
+            document.getElementById('consentPopup').style.display = 'flex';
+        };
+
+        // إغلاق الـ Popup عند النقر على الزر
+        document.getElementById('closePopup').addEventListener('click', function() {
+            document.getElementById('consentPopup').style.display = 'none';
+        });
+        const form = document.getElementById("registrationForm");
+        const successMessage = document.querySelector(".success-message");
+        const errorMessage = document.querySelector(".error-message");
+
+        form.addEventListener("submit", async(e) => {
+            e.preventDefault();
+
+            // Replace with your Google Form URL
+            const googleFormURL =
+                "https://docs.google.com/forms/d/e/1FAIpQLSe3sVlC2-koc3tybhcWdbXR7YoJGrfPY8w4s4ebtM5ztpGHng/formResponse";
+
+            // Replace with your actual field IDs
+            const fieldIDs = {
+                name: "entry.2110632755",
+                title: "entry.1263189108",
+                bayanati: "entry.1325499762",
+                email: "entry.471427714",
+                facility: "entry.1938756076",
+                emirate: "entry.1787839596",
+            };
+
+            const formData = new URLSearchParams();
+            formData.append(fieldIDs.name, document.getElementById("name").value);
+            formData.append(fieldIDs.title, document.getElementById("title").value);
+            formData.append(
+                fieldIDs.bayanati,
+                document.getElementById("bayanati").value
+            );
+            formData.append(fieldIDs.email, document.getElementById("email").value);
+            formData.append(
+                fieldIDs.facility,
+                document.getElementById("facility").value
+            );
+            formData.append(
+                fieldIDs.emirate,
+                document.getElementById("emirate").value
+            );
+
+            try {
+                await fetch(googleFormURL, {
+                    method: "POST",
+                    body: formData,
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                });
+
+                successMessage.style.display = "block";
+                errorMessage.style.display = "none";
+                form.reset();
+
+                setTimeout(() => {
+                    successMessage.style.display = "none";
+                }, 3000);
+            } catch (err) {
+                successMessage.style.display = "none";
+                errorMessage.style.display = "block";
+
+                setTimeout(() => {
+                    errorMessage.style.display = "none";
+                }, 3000);
+            }
+
+        });
+    </script>
+</body>
+
+</html>
