@@ -96,7 +96,7 @@ body {
     position: relative;
     width: 35%;
     max-width: 450px;
-    background: rgba(131, 196, 207, 0.26);
+    background: rgba(131, 196, 207, 0.822);
     border-radius: 15px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     padding: 2.5rem;
@@ -165,6 +165,16 @@ h2 {
     letter-spacing: -0.5px;
 }
 
+h2 {
+    animation: fadeInUp 0.6s ease-out 0.6s forwards;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
 label {
     animation: fadeInUp 0.6s ease-out 0.7s forwards;
     display: block;
@@ -172,12 +182,6 @@ label {
     font-weight: 600;
     color: #34495e;
     font-size: 0.85rem;
-}
-
-.input-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 0.8rem;
 }
 
 input,
@@ -201,6 +205,9 @@ select:focus {
     box-shadow: 0 4px 6px rgba(52, 152, 219, 0.1);
 }
 
+
+/* Additional Animation for Centered Fade */
+
 @keyframes fadeInCenter {
     from {
         opacity: 0;
@@ -211,6 +218,9 @@ select:focus {
         transform: translateY(0);
     }
 }
+
+
+/* Button Styles */
 
 button {
     animation: fadeInCenter 0.6s ease-out 1s forwards;
@@ -232,10 +242,12 @@ button {
 }
 
 button:hover {
-    transform: scale(2);
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.05);
     box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
 }
+
+
+/* Success and Error Message Popups */
 
 .success-message,
 .error-message {
@@ -264,7 +276,7 @@ button:hover {
 }
 
 
-/* تأكد من أن هذه الأنماط لها أولوية أعلى */
+/* Terms and Conditions Checkbox Container */
 
 .terms-container {
     display: flex !important;
@@ -275,7 +287,6 @@ button:hover {
 
 .terms-container input[type="checkbox"] {
     appearance: none !important;
-    /* إزالة المظهر الافتراضي */
     width: 18px !important;
     height: 18px !important;
     border: 2px solid #3498db !important;
@@ -307,7 +318,6 @@ button:hover {
     cursor: pointer !important;
     transition: color 0.3s ease !important;
     margin-bottom: 0 !important;
-    /* إزالة الهامش السفلي إذا كان موجودًا */
 }
 
 .terms-container label:hover {
@@ -320,22 +330,19 @@ button:hover {
 }
 
 
-/* أنماط الـ Popup */
+/* Popup Styles */
 
 .popup {
     display: none;
-    /* مخفي بشكل افتراضي */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
-    /* خلفية شبه شفافة */
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    /* تأكد من ظهوره فوق كل العناصر */
 }
 
 .popup-content {
